@@ -1,0 +1,15 @@
+{
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "database": "db.sqlite"
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "sqlite3": "^5.1.7"
+  }
+}

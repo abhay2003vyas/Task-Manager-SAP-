@@ -1,0 +1,30 @@
+{
+  "name": "taskui",
+  "version": "0.0.1",
+  "description": "A simple task management application built with SAP CAP and Fiori",
+  "keywords": [
+    "ui5",
+    "openui5",
+    "sapui5"
+  ],
+  "main": "webapp/index.html",
+  "devDependencies": {
+    "@sap-ux/ui5-middleware-fe-mockserver": "2",
+    "@sap/ux-specification": "UI5-1.108",
+    "@sap/ux-ui5-tooling": "1",
+    "@ui5/cli": "^4.0.42"
+  },
+  "scripts": {
+    "start": "fiori run --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsaptaskmanagertaskui-tile\"",
+    "start-local": "fiori run --config ./ui5-local.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsaptaskmanagertaskui-tile\"",
+    "build": "ui5 build --config=ui5.yaml --clean-dest --dest dist",
+    "start-mock": "fiori run --config ./ui5-mock.yaml --open \"test/flpSandbox.html?sap-ui-xx-viewCache=false#comsaptaskmanagertaskui-tile\"",
+    "deploy": "fiori verify",
+    "deploy-config": "fiori add deploy-config",
+    "start-noflp": "fiori run --open \"index.html?sap-ui-xx-viewCache=false\"",
+    "int-test": "fiori run --config ./ui5-mock.yaml --open \"test/integration/opaTests.qunit.html\"",
+    "start-variants-management": "fiori run --open \"preview.html?sap-ui-xx-viewCache=false&fiori-tools-rta-mode=true&sap-ui-rta-skip-flex-validation=true#preview-app\""
+  },
+  "sapux": true,
+  "sapuxLayer": "CUSTOMER_BASE"
+}
