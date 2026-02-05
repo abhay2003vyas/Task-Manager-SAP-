@@ -1,23 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx
   Version="4.0"
-  xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx"
-  xmlns="http://docs.oasis-open.org/odata/ns/edm">
+  xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+
+  <!-- UI Vocabulary -->
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+    <edmx:Include Namespace="com.sap.vocabularies.UI.v1" Alias="UI"/>
+  </edmx:Reference>
+
+  <!-- Common Vocabulary -->
+  <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+    <edmx:Include Namespace="com.sap.vocabularies.Common.v1" Alias="Common"/>
+  </edmx:Reference>
 
   <edmx:DataServices>
-    <Schema Namespace="TaskService.Annotations">
+    <Schema Namespace="annotations"
+      xmlns="http://docs.oasis-open.org/odata/ns/edm">
+
+      <!-- ================= LIST REPORT ================= -->
 
       <Annotations Target="TaskService.Tasks">
+
+        <!-- Page Header -->
+        <Annotation Term="UI.HeaderInfo">
+          <Record>
+            <PropertyValue Property="TypeName" String="Task"/>
+            <PropertyValue Property="TypeNamePlural" String="Tasks"/>
+            <PropertyValue Property="Title">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="title"/>
+              </Record>
+            </PropertyValue>
+            <PropertyValue Property="Description">
+              <Record Type="UI.DataField">
+                <PropertyValue Property="Value" Path="status"/>
+              </Record>
+            </PropertyValue>
+          </Record>
+        </Annotation>
+
+        <!-- Table Columns -->
         <Annotation Term="UI.LineItem">
           <Collection>
+
+            <!-- Task Title (main focus) -->
             <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Task Title"/>
               <PropertyValue Property="Value" Path="title"/>
+              <PropertyValue Property="Importance" EnumMember="UI.ImportanceType/High"/>
             </Record>
+
+            <!-- Status with semantic coloring -->
             <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Status"/>
               <PropertyValue Property="Value" Path="status"/>
+              <PropertyValue Property="Criticality" Path="statusCriticality"/>
             </Record>
+
           </Collection>
         </Annotation>
+
+        <!-- Filter Bar -->
+        <Annotation Term="UI.SelectionFields">
+          <Collection>
+            <PropertyPath>status</PropertyPath>
+          </Collection>
+        </Annotation>
+
       </Annotations>
 
     </Schema>
