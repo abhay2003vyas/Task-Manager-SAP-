@@ -1,5 +1,5 @@
-using { db as mydb } from '../db/schema';
+using { db as my } from '../db/schema';
 
-service TaskService {
-  entity Tasks as projection on mydb.Tasks;
+service TaskService @(path:'/odata/v4/TaskService') {
+  entity Tasks as projection on my.Tasks;
 }
