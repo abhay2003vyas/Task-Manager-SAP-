@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <edmx:Edmx
-  Version="4.0"
-  xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
+    Version="4.0"
+    xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx">
 
   <!-- UI Vocabulary -->
   <edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
@@ -15,13 +15,15 @@
 
   <edmx:DataServices>
     <Schema Namespace="annotations"
-      xmlns="http://docs.oasis-open.org/odata/ns/edm">
+            xmlns="http://docs.oasis-open.org/odata/ns/edm">
 
-      <!-- ================= LIST REPORT ================= -->
+      <!-- ===================================================== -->
+      <!-- ====================== TASKS ======================== -->
+      <!-- ===================================================== -->
 
       <Annotations Target="TaskService.Tasks">
 
-        <!-- Page Header -->
+        <!-- Header -->
         <Annotation Term="UI.HeaderInfo">
           <Record>
             <PropertyValue Property="TypeName" String="Task"/>
@@ -39,31 +41,142 @@
           </Record>
         </Annotation>
 
-        <!-- Table Columns -->
+        <!-- List Report Columns -->
         <Annotation Term="UI.LineItem">
           <Collection>
 
-            <!-- Task Title (main focus) -->
             <Record Type="UI.DataField">
               <PropertyValue Property="Label" String="Task Title"/>
               <PropertyValue Property="Value" Path="title"/>
-              <PropertyValue Property="Importance" EnumMember="UI.ImportanceType/High"/>
             </Record>
 
-            <!-- Status with semantic coloring -->
             <Record Type="UI.DataField">
               <PropertyValue Property="Label" String="Status"/>
               <PropertyValue Property="Value" Path="status"/>
               <PropertyValue Property="Criticality" Path="statusCriticality"/>
             </Record>
 
+            <Record Type="UI.DataFieldWithNavigationPath">
+              <PropertyValue Property="Label" String="Company"/>
+              <PropertyValue Property="Value" Path="company/name"/>
+              <PropertyValue Property="NavigationPropertyPath" Path="company"/>
+            </Record>
+
+            <Record Type="UI.DataFieldWithNavigationPath">
+              <PropertyValue Property="Label" String="Department"/>
+              <PropertyValue Property="Value" Path="department/name"/>
+              <PropertyValue Property="NavigationPropertyPath" Path="department"/>
+            </Record>
+
+            <Record Type="UI.DataFieldWithNavigationPath">
+              <PropertyValue Property="Label" String="Employee"/>
+              <PropertyValue Property="Value" Path="employee/name"/>
+              <PropertyValue Property="NavigationPropertyPath" Path="employee"/>
+            </Record>
+
           </Collection>
         </Annotation>
 
-        <!-- Filter Bar -->
+        <!-- Filter -->
         <Annotation Term="UI.SelectionFields">
           <Collection>
             <PropertyPath>status</PropertyPath>
+          </Collection>
+        </Annotation>
+
+        <!-- Object Page Sections -->
+        <Annotation Term="UI.Facets">
+          <Collection>
+
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Company Details"/>
+              <PropertyValue Property="Target" AnnotationPath="company/@UI.LineItem"/>
+            </Record>
+
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Department Details"/>
+              <PropertyValue Property="Target" AnnotationPath="department/@UI.LineItem"/>
+            </Record>
+
+            <Record Type="UI.ReferenceFacet">
+              <PropertyValue Property="Label" String="Employee Details"/>
+              <PropertyValue Property="Target" AnnotationPath="employee/@UI.LineItem"/>
+            </Record>
+
+          </Collection>
+        </Annotation>
+
+      </Annotations>
+
+
+      <!-- ===================================================== -->
+      <!-- ===================== COMPANY ======================= -->
+      <!-- ===================================================== -->
+
+      <Annotations Target="TaskService.Company">
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Company Name"/>
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Location"/>
+              <PropertyValue Property="Value" Path="location"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+      </Annotations>
+
+
+      <!-- ===================================================== -->
+      <!-- ==================== DEPARTMENT ===================== -->
+      <!-- ===================================================== -->
+
+      <Annotations Target="TaskService.Departments">
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Department"/>
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Company"/>
+              <PropertyValue Property="Value" Path="company/name"/>
+            </Record>
+          </Collection>
+        </Annotation>
+
+      </Annotations>
+
+
+      <!-- ===================================================== -->
+      <!-- ==================== EMPLOYEES ====================== -->
+      <!-- ===================================================== -->
+
+      <Annotations Target="TaskService.Employees">
+
+        <Annotation Term="UI.LineItem">
+          <Collection>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Name"/>
+              <PropertyValue Property="Value" Path="name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Email"/>
+              <PropertyValue Property="Value" Path="email"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Department"/>
+              <PropertyValue Property="Value" Path="department/name"/>
+            </Record>
+            <Record Type="UI.DataField">
+              <PropertyValue Property="Label" String="Manager"/>
+              <PropertyValue Property="Value" Path="manager/name"/>
+            </Record>
           </Collection>
         </Annotation>
 
